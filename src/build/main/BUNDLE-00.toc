@@ -1,0 +1,3 @@
+([('createWordCloud',
+   '/Users/iori_watanabe/workspace/wordcloud-desktop/src/dist/createWordCloud',
+   'EXECUTABLE')],)

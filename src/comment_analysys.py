@@ -23,7 +23,7 @@ from wordcloud import WordCloud
 class Comment2WordCloud:
     def __init__(self, csv_path, header=None):
         self.__data = pd.read_csv(csv_path, header=None, encoding='utf-8')
-        self.__data_string = tabulate(self.__data,tablefmt='github', showindex=False)
+        self.__data_string = tabulate(self.__data,tablefmt='simple', showindex=False)
         
         self.fpath =  glob('/Library/Fonts//*.ttf')[0] if os.name=="posix" else glob('C:\Windows\Fonts\*.ttf')[0] 
         
@@ -88,7 +88,10 @@ class Comment2WordCloud:
         plt.imshow(self.__wordcloud)
         plt.axis("off")
 
-    def save_wordcloud(self, save_path):
+    def save_wordcloud(self, save_path,width,height):
+        plt.figure(figsize=(width, height))
+        plt.imshow(self.__wordcloud)
+        plt.axis("off")
         plt.savefig(fname=save_path, bbox_inches='tight', pad_inches=0)
 
 

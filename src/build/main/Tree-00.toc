@@ -1,0 +1,6 @@
+('img',
+ 'img',
+ [],
+ 'DATA',
+ [('img/init.png', 'img/init.png', 'DATA'),
+  ('img/Jellyfish-Icon.png', 'img/Jellyfish-Icon.png', 'DATA')])
