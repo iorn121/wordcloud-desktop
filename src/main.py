@@ -3,12 +3,11 @@ import wx
 import pandas as pd
 from pathlib import Path
 import sys
-
+from janome.tokenizer import Tokenizer
 import traceback
 from glob import glob
 from tabulate import tabulate
 import matplotlib.pyplot as plt
-import MeCab
 from wordcloud import WordCloud
 
 
@@ -38,8 +37,8 @@ class Comment2WordCloud:
             return
 
     def wakati_count(self):
-        # MeCabのTaggerオブジェクトを作成
-        mecab = MeCab.Tagger()
+        tokenizer=Tokenizer()
+        
 
         # 各文節をカウントするための辞書を用意する
         self.count_text = {}
@@ -51,19 +50,19 @@ class Comment2WordCloud:
             
             for sentence in item:
 
-                node = mecab.parseToNode(str(sentence).replace('\u3000',''))
+                nodes = tokenizer.tokenize(str(sentence).replace('\u3000',''),wakati=True)
 
                 # 分かち書きされた文字列から各文節をカウントする
-                while node:
+                                # 分かち書きされた文字列から各文節をカウントする
+                for node in nodes:
 
-                    if node.surface not in self.non_count:  # 不要な文字列はカウントしない
+                    if node not in self.non_count:  # 不要な文字列はカウントしない
                         # まだ辞書に登録されていない文節の場合は、新しく辞書に登録する
-                        if node.surface not in self.count_text:
-                            self.count_text[node.surface] = 1
+                        if node not in self.count_text:
+                            self.count_text[node] = 1
                         # 既に登録されている文節の場合は、カウントを1増やす
                         else:
-                            self.count_text[node.surface] += 1
-                    node = node.next
+                            self.count_text[node] += 1
 
         # カウント数の降順に並び替える
         self.count_sorted_text = sorted([[str(k), v] for (k, v) in self.count_text.items()], key=lambda x: -x[1])

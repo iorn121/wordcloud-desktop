@@ -1,5 +1,0 @@
-('output',
- 'output',
- [],
- 'DATA',
- [('output/wordcloud.png', 'output/wordcloud.png', 'DATA')])
